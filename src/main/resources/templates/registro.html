@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoteling - Registro</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<!-- NAVBAR -->
+    <nav>
+        <div class="navbar-left">
+            <h2><a th:href="@{/}" style="color:white; text-decoration:none;">Hoteling</a></h2>
+        </div>
+    </nav>
+    <div class="form-container">
+        <h2>Hoteling</h2>
+        <form th:action="@{/registro}" method="post">
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" required>
+            <button type="submit" class="register-btn">Registrarse</button>
+            <p th:if="${error}" th:text="${error}" style="color:#e74c3c;"></p>
+        </form>
+        <a th:href="@{/login}" class="link">¿Ya tienes cuenta? Inicia sesión</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoteling - Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="navbar-left">
+            <h2>Hoteling</h2>
+        </div>
+        <div class="navbar-right">
+            <a th:href="@{/login}">Iniciar Sesión</a>
+        </div>
+    </nav>
+
+    <!-- BUSCADOR -->
+    <section class="search-section">
+        <form th:action="@{/}" method="get">
+            <input type="text" name="q" placeholder="Buscar por nombre o precio...">
+            <button type="submit">Buscar</button>
+        </form>
+    </section>
+
+    <!-- LISTA DE RECURSOS -->
+    <section class="recursos-section">
+        <div class="recursos-container">
+            <div th:each="recurso : ${recursos}" class="card">
+                <img th:src="@{/img/{foto}(foto=${recurso.foto})}" alt="Foto recurso">
+                <h3 th:text="${recurso.nombre}">Nombre recurso</h3>
+                <p th:text="${recurso.descripcion}">Descripción...</p>
+                <p><strong th:text="${#numbers.formatDecimal(recurso.precio, 1, 2)}"></strong> €</p>
+                <button th:onclick="'location.href=\'/recursos/' + ${recurso.id} + '\';'">Información</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
