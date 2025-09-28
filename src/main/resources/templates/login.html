@@ -17,7 +17,7 @@
     <div class="form-container">
         <h2>Hoteling</h2>
         <form th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="text" name="nombre" placeholder="Usuario" required>
             <input type="password" name="password" placeholder="Contraseña" required>
             <button type="submit" class="login-btn">Entrar</button>
             <p th:if="${error}" th:text="${error}" style="color:#e74c3c;"></p>

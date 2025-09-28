@@ -165,3 +165,140 @@ nav a {
 .form-container .link:hover {
     text-decoration: underline;
 }
+
+/* === ESTILOS FICHA DETALLE === */
+
+.detalle-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: #f4f6f9;
+}
+
+/* Tarjeta contenedora */
+.detalle-card {
+    max-width: 900px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+    padding: 20px;
+}
+
+.detalle-card:hover {
+    transform: scale(1.01);
+}
+
+/* Layout: imagen izquierda + info derecha */
+.detalle-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Columna izquierda (foto) */
+.detalle-img-container {
+    flex: 0 0 220px; /* ancho fijo */
+}
+
+.detalle-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Columna derecha (texto e info) */
+.detalle-content {
+    flex: 1;
+    text-align: left;
+}
+
+.detalle-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.detalle-content .descripcion {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.detalle-content p {
+    margin: 8px 0;
+    font-size: 1rem;
+    color: #444;
+}
+
+/* Acciones (los botones mantienen tus colores actuales) */
+.detalle-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+button.btn,
+a.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Botón volver */
+.volver-btn {
+    background: #95a5a6;
+}
+
+.volver-btn:hover {
+    background: #7f8c8d;
+}
+
+/* Botón reservar */
+.reservar-btn {
+    background: #27ae60;
+}
+
+.reservar-btn:hover {
+    background: #1e8449;
+}
+
+/* Responsive: en móvil se pone vertical */
+@media (max-width: 768px) {
+    .detalle-layout {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .detalle-img-container {
+        flex: none;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .detalle-img {
+        height: 200px;
+    }
+
+    .detalle-content {
+        text-align: center;
+    }
+
+    .detalle-actions {
+        justify-content: center;
+    }
+}
+
+
+

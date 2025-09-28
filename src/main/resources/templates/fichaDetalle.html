@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Recurso</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="navbar-left">
+            <h2><a th:href="@{/}" style="color:white; text-decoration:none;">Hoteling</a></h2>
+        </div>
+    </nav>
+    <div class="detalle-wrapper">
+        <div class="detalle-card">
+            <img th:src="@{/images/hotel_sol.jpg}" alt="Foto recurso" class="detalle-img">
+
+            <div class="detalle-content">
+                <h2 th:text="${recurso.nombre}">Nombre recurso</h2>
+                <p class="descripcion" th:text="${recurso.descripcion}"></p>
+                <p><strong>Precio:</strong> 
+                    <span th:text="${#numbers.formatDecimal(recurso.precio, 1, 'POINT', 2, 'POINT')}"></span> €
+                </p>
+                <p><strong>Capacidad:</strong> 
+                    <span th:text="${recurso.capacidad}"></span> personas
+                </p>
+
+                <div class="detalle-actions">
+				    <form th:action="@{/}" method="get" style="display:inline;">
+				        <button type="submit" class="btn volver-btn">← Volver</button>
+				    </form>
+				    <form th:action="@{'/reservar/' + ${recurso.id}}" method="get" style="display:inline;">
+				        <button type="submit" class="btn reservar-btn">Reservar</button>
+				    </form>
+				</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

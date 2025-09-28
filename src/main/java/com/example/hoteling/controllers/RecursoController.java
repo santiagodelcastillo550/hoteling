@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hoteling.entities.Recurso;
@@ -48,9 +49,9 @@ public class RecursoController {
 
     // Detalle de recurso (para tu botón "Información")
     @GetMapping("/recursos/{id}")
-    public String detalleRecurso(@RequestParam Long id, Model model) {
+    public String detalleRecurso(@PathVariable Long id, Model model) {
         Recurso recurso = recursoRepository.findById(id).orElse(null);
         model.addAttribute("recurso", recurso);
-        return "detalle"; // Necesitarías crear detalle.html
+        return "fichaDetalle"; // Necesitarías crear detalle.html
     }
 }
