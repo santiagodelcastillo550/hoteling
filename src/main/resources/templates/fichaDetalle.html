@@ -13,9 +13,14 @@
         </div>
     </nav>
     <div class="detalle-wrapper">
-        <div class="detalle-card">
-            <img th:src="@{/images/hotel_sol.jpg}" alt="Foto recurso" class="detalle-img">
+        <div class="detalle-card detalle-layout">
+            
+            <!-- Imagen a la izquierda -->
+            <div class="detalle-img-container">
+                <img th:src="@{/images/hotel_sol.jpg}" alt="Foto recurso" class="detalle-img">
+            </div>
 
+            <!-- Contenido a la derecha -->
             <div class="detalle-content">
                 <h2 th:text="${recurso.nombre}">Nombre recurso</h2>
                 <p class="descripcion" th:text="${recurso.descripcion}"></p>
@@ -27,14 +32,15 @@
                 </p>
 
                 <div class="detalle-actions">
-				    <form th:action="@{/}" method="get" style="display:inline;">
-				        <button type="submit" class="btn volver-btn">← Volver</button>
-				    </form>
-				    <form th:action="@{'/reservar/' + ${recurso.id}}" method="get" style="display:inline;">
-				        <button type="submit" class="btn reservar-btn">Reservar</button>
-				    </form>
-				</div>
+                    <form th:action="@{/}" method="get" style="display:inline;">
+                        <button type="submit" class="btn volver-btn">← Volver</button>
+                    </form>
+                    <form th:action="@{'/reservar/' + ${recurso.id}}" method="get" style="display:inline;">
+                        <button type="submit" class="btn reservar-btn">Reservar</button>
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 </body>

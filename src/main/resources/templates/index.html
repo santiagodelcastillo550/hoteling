@@ -27,17 +27,34 @@
     </section>
 
     <!-- LISTA DE RECURSOS -->
-    <section class="recursos-section">
-        <div class="recursos-container">
-            <div th:each="recurso : ${recursos}" class="card">
-                <img th:src="@{/img/{foto}(foto=${recurso.foto})}" alt="Foto recurso">
-                <h3 th:text="${recurso.nombre}">Nombre recurso</h3>
-                <p th:text="${recurso.descripcion}">Descripción...</p>
-                <p><strong th:text="${#numbers.formatDecimal(recurso.precio, 1, 2)}"></strong> €</p>
-                <button th:onclick="'location.href=\'/recursos/' + ${recurso.id} + '\';'">Información</button>
-            </div>
-        </div>
-    </section>
-
+	<section class="recursos-section">
+	    <div class="recursos-container">
+	        <div th:each="recurso : ${recursos}" class="recurso-card">
+	            
+	            <!-- Imagen -->
+	            <div class="recurso-img-container">
+	                <img th:src="@{/images/hotel_sol.jpg}" alt="Foto recurso" class="recurso-img">
+	            </div>
+	
+	            <!-- Contenido -->
+	            <div class="recurso-content">
+	                <h3 th:text="${recurso.nombre}">Nombre recurso</h3>
+	                <p class="descripcion" th:text="${recurso.descripcion}">Descripción...</p>
+	                <p><strong>Precio:</strong> 
+	                    <span th:text="${#numbers.formatDecimal(recurso.precio, 1, 'POINT', 2, 'POINT')}"></span> €
+	                </p>
+	
+	                <!-- Botón -->
+	                <div class="recurso-actions">
+	                    <button class="btn info-btn" 
+	                            th:onclick="'location.href=\'/recursos/' + ${recurso.id} + '\';'">
+	                        Información
+	                    </button>
+	                </div>
+	            </div>
+	
+	        </div>
+	    </div>
+	</section>
 </body>
 </html>
