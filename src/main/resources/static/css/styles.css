@@ -257,7 +257,7 @@ a.btn {
 
 /* Tarjeta contenedora */
 .detalle-card {
-    max-width: 900px;
+    max-width: 1000px;
     background: #fff;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -279,21 +279,23 @@ a.btn {
 
 /* Columna izquierda (foto) */
 .detalle-img-container {
-    flex: 1; /* ancho fijo */
+    flex: 0 0 220px; /* ancho fijo */
+    margin-right: 30px;
 }
 
 .detalle-img {
     width: 100%;
     object-fit: cover;
-    max-width: 250px; /* controla el ancho máximo */
+    max-width: 180px; /* controla el ancho máximo */
     height: auto;
     border-radius: 10px;
 }
 
 /* Columna derecha (texto e info) */
 .detalle-content {
-    flex: 2;
+    flex: 1;
     text-align: left;
+    margin-left: 10px;
 }
 
 .detalle-content h2 {
@@ -380,6 +382,43 @@ a.btn {
         justify-content: center;
     }
 }
+
+/* === FORMULARIO DE RESERVA === */
+.reserva-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fdfdfd;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(41, 128, 185, 0.4);
+}
+
 
 
 

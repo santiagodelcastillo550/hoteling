@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservar recurso</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="navbar-left">
+            <h2><a th:href="@{/}" style="color:white; text-decoration:none;">Hoteling</a></h2>
+        </div>
+    </nav>
+
+    <div class="detalle-wrapper">
+        <div class="detalle-card">
+            <h2>Reserva de <span th:text="${recurso.nombre}">Recurso</span></h2>
+
+            <form th:action="@{'/reservar/' + ${recurso.id}}" method="post" class="reserva-form">
+                
+                <!-- Fechas -->
+                <div class="form-group">
+                    <label for="fechaEntrada">Fecha de entrada</label>
+                    <input type="date" id="fechaEntrada" name="fechaEntrada" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaSalida">Fecha de salida</label>
+                    <input type="date" id="fechaSalida" name="fechaSalida" required>
+                </div>
+
+                <!-- Personas -->
+                <div class="form-group">
+                    <label for="personas">Número de personas</label>
+                    <input type="number" id="personas" name="personas" min="1" required>
+                </div>
+
+                <!-- Observaciones -->
+                <div class="form-group">
+                    <label for="observaciones">Observaciones</label>
+                    <textarea id="observaciones" name="observaciones" rows="4"></textarea>
+                </div>
+
+                <!-- Botones -->
+                <div class="detalle-actions">
+                    <button type="button" class="btn reservar-btn" id="confirmarBtn">Confirmar reserva</button>
+                    <a th:href="@{/}" class="btn volver-btn">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script th:src="@{/js/reserva.js}"></script>
+    
+</body>
+</html>

@@ -50,7 +50,8 @@ public class RecursoController {
     // Detalle de recurso (para tu botón "Información")
     @GetMapping("/recursos/{id}")
     public String detalleRecurso(@PathVariable Long id, Model model) {
-        Recurso recurso = recursoRepository.findById(id).orElse(null);
+        Recurso recurso = recursoRepository.findById(id)
+        		.orElseThrow(() -> new RuntimeException("Recurso no encontrado"));
         model.addAttribute("recurso", recurso);
         return "fichaDetalle"; // Necesitarías crear detalle.html
     }
