@@ -33,7 +33,8 @@
 	            
 	            <!-- Imagen -->
 	            <div class="recurso-img-container">
-	                <img th:src="@{/images/hotel_sol.jpg}" alt="Foto recurso" class="recurso-img">
+	                <img th:src="@{/images/{foto}(foto=${recurso.foto})}" 
+     					th:alt="${recurso.nombre}" class="detalle-img">
 	            </div>
 	
 	            <!-- Contenido -->

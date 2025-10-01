@@ -419,6 +419,92 @@ a.btn {
     box-shadow: 0 0 5px rgba(41, 128, 185, 0.4);
 }
 
+/* ===== MODAL DE CONFIRMACIÓN ====== */
 
+.modal {
+  display: none;                
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(40, 0, 70, 0.6);
+
+  justify-content: center;
+  align-items: center;
+}
+
+/* === Caja de la modal === */
+.modal-content {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 15px;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.25s ease-in-out;
+  position: relative;
+}
+
+/* Título */
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #ff6600; /* naranja */
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+/* Texto */
+.modal-content p {
+  margin: 10px 0 20px;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* Acciones */
+.modal-actions {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+/* Botón de cerrar (X) */
+.close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.close:hover {
+  color: #ff6600; /* naranja */
+}
+
+.btn-disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none; /* 🔥 evita cualquier hover o click */
+}
+
+/* Opcional: si tienes efectos de hover normales, asegúrate que no se apliquen */
+.btn-disabled:hover {
+    background-color: #ccc;
+    color: #666;
+}
+
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9);}
+  to { opacity: 1; transform: scale(1);}
+}
 
 

@@ -44,13 +44,14 @@
 
                 <!-- Botones -->
                 <div class="detalle-actions">
-                    <button type="button" class="btn reservar-btn" id="confirmarBtn">Confirmar reserva</button>
+                    <button type="button" id="abrirModal" class="btn reservar-btn">Confirmar reserva</button>
                     <a th:href="@{/}" class="btn volver-btn">Cancelar</a>
                 </div>
             </form>
         </div>
     </div>
-    
+    <!-- Modal de confirmación -->
+	<div th:replace="~{fragments/confirmacion :: modal}"></div>
     <script th:src="@{/js/reserva.js}"></script>
     
 </body>
