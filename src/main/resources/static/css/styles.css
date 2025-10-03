@@ -26,6 +26,13 @@ nav a {
     font-weight: bold;
 }
 
+/* separación entre "Mis Reservas" y "Cerrar Sesión" */
+.navbar-right {
+    display: flex;
+    gap: 100px; 
+    align-items: center;
+}
+
 /* BARRA BUSQUEDA*/
 .search-section {
     text-align: center;

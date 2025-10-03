@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.hoteling.bussiness.UsuarioService;
 import com.example.hoteling.entities.Usuario;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UsuarioController {
 
@@ -50,13 +52,24 @@ public class UsuarioController {
     @PostMapping("/login")
     public String autenticar(@RequestParam String nombre,
                              @RequestParam String password,
-                             Model model) {
+                             Model model,
+                             HttpSession session) {
 
-        return usuarioService.autenticar(nombre, password)
-                .map(u -> "redirect:/") // login OK
+    	return usuarioService.autenticar(nombre, password)
+                .map(u -> {
+                    session.setAttribute("usuarioLogueado", u); // 🔹 Guardamos el usuario en sesión
+                    return "redirect:/";
+                })
                 .orElseGet(() -> {
                     model.addAttribute("error", "Usuario o contraseña incorrectos");
                     return "login";
                 });
+    }
+    
+ // Cerrar sesión
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 🔹 Borra la sesión completa
+        return "redirect:/";
     }
 }
