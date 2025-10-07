@@ -27,7 +27,7 @@ public class ReservaService {
     }
 
     public void crearReserva(Usuario usuario, Recurso recurso, LocalDate fechaInicio, LocalDate fechaFin, int personas, String observaciones) {
-        log.info("📅 Entrando en crearReserva(): usuario={}, recurso={}, personas={}, fechas={} -> {}",
+        log.info("Entrando en crearReserva(): usuario={}, recurso={}, personas={}, fechas={} -> {}",
                 usuario.getNombre(), recurso.getNombre(), personas, fechaInicio, fechaFin);
 
         Reserva reserva = new Reserva();
@@ -36,10 +36,11 @@ public class ReservaService {
         reserva.setFechaInicio(fechaInicio);
         reserva.setFechaFin(fechaFin);
         reserva.setPersonas(personas);
+        reserva.setObservaciones(observaciones);
         reserva.setEstado(Estado.CONFIRMADA);
 
         reservaRepository.save(reserva);
-        log.info("✅ Reserva guardada correctamente en la base de datos con ID={}", reserva.getId());
+        log.info("Reserva guardada correctamente en la base de datos con ID={}", reserva.getId());
     }
 
     public Optional<Reserva> obtenerReservaPorId(Long id) {

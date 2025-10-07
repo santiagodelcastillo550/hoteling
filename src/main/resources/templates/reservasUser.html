@@ -143,7 +143,11 @@
                 <p><strong>Fecha de salida:</strong> <span th:text="${reserva.fechaFin}"></span></p>
                 <p><strong>Personas:</strong> <span th:text="${reserva.personas}"></span></p>
                 <p><strong>Estado:</strong> <span th:text="${reserva.estado}" th:classappend="' estado ' + ${reserva.estado}"></span></p>
-
+				<!-- Mostrar observaciones solo si existen -->
+                <p th:if="${reserva.observaciones != null && reserva.observaciones != ''}">
+                    <strong>Observaciones:</strong> 
+                    <span th:text="${reserva.observaciones}"></span>
+                </p>
                 <div class="reserva-actions">
                     <form th:action="@{/}" method="get" style="display:inline;">
                         <button type="submit" class="btn volver-btn">← Volver</button>

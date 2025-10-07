@@ -24,6 +24,8 @@ public class Reserva {
 	
 	private int personas;
 	
+	private String observaciones;
+	
 	@Enumerated(EnumType.STRING)
 	private Estado estado;
 	
@@ -67,6 +69,14 @@ public class Reserva {
 		this.personas = personas;
 	}
 
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
 	public Estado getEstado() {
 		return estado;
 	}
@@ -94,8 +104,11 @@ public class Reserva {
 	@Override
 	public String toString() {
 		return "Reserva [id=" + id + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", personas="
-				+ personas + ", estado=" + estado + ", usuario=" + usuario + ", recurso=" + recurso + "]";
+				+ personas + ", observaciones=" + observaciones + ", estado=" + estado + ", usuario=" + usuario
+				+ ", recurso=" + recurso + "]";
 	}
+
+	
     
     
 	

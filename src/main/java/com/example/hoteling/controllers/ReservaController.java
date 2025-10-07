@@ -2,6 +2,7 @@ package com.example.hoteling.controllers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.hoteling.bussiness.ReservaService;
 import com.example.hoteling.entities.Recurso;
+import com.example.hoteling.entities.Reserva;
 import com.example.hoteling.entities.Usuario;
 import com.example.hoteling.repositories.RecursoRepository;
 
@@ -44,6 +46,7 @@ public class ReservaController {
             @RequestParam String fechaEntrada,
             @RequestParam String fechaSalida,
             @RequestParam int personas,
+            @RequestParam(required = false) String observaciones,
             HttpSession session
     ) {
         // ✅ Obtener usuario logueado desde la sesión
@@ -65,7 +68,7 @@ public class ReservaController {
             throw new RuntimeException("La fecha de salida debe ser posterior a la de entrada");
         }
 
-        reservaService.crearReserva(usuario, recurso, fechaInicio, fechaFin, personas, null);
+        reservaService.crearReserva(usuario, recurso, fechaInicio, fechaFin, personas, observaciones);
 
         return "redirect:/";
     }
@@ -78,7 +81,9 @@ public class ReservaController {
             return "redirect:/login";
         }
 
-        model.addAttribute("reservas", reservaService.obtenerReservasDeUsuario(usuario));
+        List<Reserva> reservas = reservaService.obtenerReservasDeUsuario(usuario);
+        model.addAttribute("reservas", reservas);
+
         return "reservasUser"; // nombre del template
     }
 

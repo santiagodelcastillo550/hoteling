@@ -8,9 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const fechaFinInput = document.getElementById("fechaSalida");
     const personasInput = document.getElementById("personas");
 
-    if (!abrirModalBtn || !modal || !fechaInicioInput || !fechaFinInput || !personasInput) return;
+    const form = document.querySelector("form.reserva-form");
 
-    // --- Función para habilitar/deshabilitar botón ---
+    if (!abrirModalBtn || !modal || !fechaInicioInput || !fechaFinInput || !personasInput || !form) return;
+
+    // --- Habilitar/deshabilitar botón según campos ---
     function checkCampos() {
         if (fechaInicioInput.value && fechaFinInput.value && personasInput.value) {
             abrirModalBtn.disabled = false;
@@ -32,14 +34,25 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.style.display = "flex";
     });
 
-    // --- Cerrar modal ---
+    // --- Confirmar reserva (botón dentro del modal) ---
+    if (cerrarModalBtn) {
+        cerrarModalBtn.addEventListener("click", function () {
+            modal.style.display = "none";
+
+            // 🧠 Enviar el formulario (guarda en base de datos)
+            form.submit();
+        });
+    }
+
+    // --- Cerrar modal con la X ---
     function cerrarModal() {
         modal.style.display = "none";
-        window.location.href = "/"; // 🔥 redirige al index
     }
 
     if (closeBtn) closeBtn.addEventListener("click", cerrarModal);
-    if (cerrarModalBtn) cerrarModalBtn.addEventListener("click", cerrarModal);
 
-    window.addEventListener("click", e => { if (e.target === modal) cerrarModal(); });
+    // --- Cerrar modal al hacer click fuera ---
+    window.addEventListener("click", e => { 
+        if (e.target === modal) cerrarModal(); 
+    });
 });
