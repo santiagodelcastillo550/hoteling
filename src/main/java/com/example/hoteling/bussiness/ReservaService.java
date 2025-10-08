@@ -30,6 +30,12 @@ public class ReservaService {
         log.info("Entrando en crearReserva(): usuario={}, recurso={}, personas={}, fechas={} -> {}",
                 usuario.getNombre(), recurso.getNombre(), personas, fechaInicio, fechaFin);
 
+        List<Reserva> solapadas = reservaRepository.findReservasSolapadas(usuario, recurso, fechaInicio, fechaFin);
+
+        if (!solapadas.isEmpty()) {
+            throw new IllegalArgumentException("Ya tienes una reserva en estas fechas para este recurso.");
+        }
+        
         Reserva reserva = new Reserva();
         reserva.setUsuario(usuario);
         reserva.setRecurso(recurso);

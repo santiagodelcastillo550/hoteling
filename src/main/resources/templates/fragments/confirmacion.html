@@ -3,14 +3,55 @@
 <body>
     <!-- FRAGMENTO MODAL -->
     <div th:fragment="modal" id="modalConfirmacion" class="modal">
-        <div class="modal-content">
+        <div id="modalContent" class="modal-content">
             <span class="close">&times;</span>
-            <h2>Reserva confirmada</h2>
-            <p>Tu reserva se ha procesado correctamente 🎉</p>
+            <h2 id="modalTitulo">Reserva</h2>
+            <p id="modalMensaje">Mensaje aquí</p>
             <div class="modal-actions">
                 <button id="cerrarModal" class="btn volver-btn">Cerrar</button>
             </div>
         </div>
+
+        <script th:inline="javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                const modal = document.getElementById("modalConfirmacion");
+                const modalTitulo = document.getElementById("modalTitulo");
+                const modalMensaje = document.getElementById("modalMensaje");
+                const modalContent = document.getElementById("modalContent");
+
+                // Variables Thymeleaf
+                const success = /*[[${successReserva}]]*/ false;
+                const error = /*[[${errorReserva}]]*/ false;
+
+                if (error) {
+                    // ⚠️ Conflicto de reserva
+                    modalTitulo.textContent = "⚠️ Conflicto de reserva";
+                    modalMensaje.textContent = "Ya tienes una reserva para estas fechas aquí.";
+                    modalContent.style.border = "2px solid #d9534f";
+                    modalContent.style.color = "#b30000";
+                    modal.style.display = "flex";
+                } else if (success) {
+                    // ✅ Reserva confirmada
+                    modalTitulo.textContent = "✅ Reserva confirmada";
+                    modalMensaje.textContent = "Tu reserva se ha procesado correctamente 🎉";
+                    modalContent.style.border = "2px solid #28a745";
+                    modalContent.style.color = "#155724";
+                    modal.style.display = "flex";
+
+                    // Redirigir automáticamente al inicio tras 3 segundos
+                    setTimeout(() => window.location.href = "/", 3000);
+                }
+
+                // Cierre manual
+                const cerrarModalBtn = document.getElementById("cerrarModal");
+                const closeBtn = modal.querySelector(".close");
+
+                const cerrarModal = () => modal.style.display = "none";
+                if (cerrarModalBtn) cerrarModalBtn.addEventListener("click", cerrarModal);
+                if (closeBtn) closeBtn.addEventListener("click", cerrarModal);
+                window.addEventListener("click", e => { if (e.target === modal) cerrarModal(); });
+            });
+        </script>
     </div>
 </body>
 </html>
