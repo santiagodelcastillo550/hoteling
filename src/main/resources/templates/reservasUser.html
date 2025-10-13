@@ -3,118 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis Reservas</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <style>
-        /* Ajustes básicos (no cambiamos tus colores base) */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            color: #2c3e50;
-        }
-
-        .reservas-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .reserva-card {
-            display: flex;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            width: 90%;
-            max-width: 900px;
-            overflow: hidden;
-        }
-
-        .reserva-img-container {
-            width: 40%;
-            min-width: 250px;
-        }
-
-        .reserva-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .reserva-content {
-            padding: 20px;
-            flex: 1;
-        }
-
-        .reserva-content h2 {
-            margin-top: 0;
-            color: #34495e;
-        }
-
-        .reserva-content p {
-            margin: 6px 0;
-        }
-
-        .estado {
-            font-weight: bold;
-        }
-
-        .estado.CONFIRMADA {
-            color: #27ae60;
-        }
-
-        .estado.CANCELADA {
-            color: #e74c3c;
-        }
-
-        .no-reservas {
-            text-align: center;
-            color: #555;
-            margin-top: 50px;
-            font-size: 1.1em;
-        }
-
-        /* Botones */
-        .reserva-actions {
-            margin-top: 15px;
-        }
-
-        .btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .cancelar-btn {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        .cancelar-btn:hover {
-            background-color: #c0392b;
-        }
-
-        .volver-btn {
-            background-color: #34495e;
-            color: white;
-            margin-right: 10px;
-        }
-
-        .volver-btn:hover {
-            background-color: #2c3e50;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/styles.css?v=2}">
 </head>
-<body>
+<body class="reservas-page">
     <!-- NAVBAR -->
     <nav>
         <div class="navbar-left">
@@ -125,17 +16,21 @@
     <h1>Mis Reservas</h1>
 
     <div class="reservas-container">
+        <!-- Si no hay reservas -->
         <div th:if="${#lists.isEmpty(reservas)}" class="no-reservas">
             <p>No tienes reservas registradas.</p>
         </div>
 
+        <!-- Lista de reservas -->
         <div th:each="reserva : ${reservas}" class="reserva-card">
             <!-- Imagen del recurso -->
             <div class="reserva-img-container">
-                <img th:src="@{/images/hotel_sol.jpg}" alt="Foto recurso">
+                <img th:src="@{/images/{foto}(foto=${reserva.recurso.foto})}"
+				     th:alt="${reserva.recurso.nombre}" class="detalle-img"
+				     onerror="this.src='/images/default.jpg'">
             </div>
 
-            <!-- Contenido -->
+            <!-- Contenido de la reserva -->
             <div class="reserva-content">
                 <h2 th:text="${reserva.recurso.nombre}">Nombre del recurso</h2>
                 <p th:text="${reserva.recurso.descripcion}">Descripción del recurso...</p>
@@ -143,17 +38,19 @@
                 <p><strong>Fecha de salida:</strong> <span th:text="${reserva.fechaFin}"></span></p>
                 <p><strong>Personas:</strong> <span th:text="${reserva.personas}"></span></p>
                 <p><strong>Estado:</strong> <span th:text="${reserva.estado}" th:classappend="' estado ' + ${reserva.estado}"></span></p>
-				<!-- Mostrar observaciones solo si existen -->
+
+                <!-- Mostrar observaciones si existen -->
                 <p th:if="${reserva.observaciones != null && reserva.observaciones != ''}">
                     <strong>Observaciones:</strong> 
                     <span th:text="${reserva.observaciones}"></span>
                 </p>
+
+                <!-- Botones -->
                 <div class="reserva-actions">
                     <form th:action="@{/}" method="get" style="display:inline;">
                         <button type="submit" class="btn volver-btn">← Volver</button>
                     </form>
 
-                    <!-- Este botón será funcional más adelante -->
                     <form th:action="@{'/cancelar-reserva/' + ${reserva.id}}" method="post" style="display:inline;">
                         <button type="submit" class="btn cancelar-btn">Cancelar</button>
                     </form>

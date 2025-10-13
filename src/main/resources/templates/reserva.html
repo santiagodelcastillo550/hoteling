@@ -17,9 +17,9 @@
         <div class="detalle-card">
             <h2>Reserva de <span th:text="${recurso.nombre}">Recurso</span></h2>
 
-			<div th:if="${errorReserva}" class="alerta-error">
+			<!-- <div th:if="${errorReserva}" class="alerta-error">
 			    <p th:text="${errorReserva}"></p>
-			</div>
+			</div> -->
             <form th:action="@{'/reservar/' + ${recurso.id}}" method="post" class="reserva-form">
                 
                 <!-- Fechas -->
@@ -47,7 +47,7 @@
 
                 <!-- Botones -->
                 <div class="detalle-actions">
-                    <button type="button" id="abrirModal" class="btn reservar-btn">Confirmar reserva</button>
+                    <button type="submit" id="abrirModal" class="btn reservar-btn">Confirmar reserva</button>
                     <a th:href="@{/}" class="btn volver-btn">Cancelar</a>
                 </div>
             </form>
