@@ -51,12 +51,22 @@
                         <button type="submit" class="btn volver-btn">← Volver</button>
                     </form>
 
-                    <form th:action="@{'/cancelar-reserva/' + ${reserva.id}}" method="post" style="display:inline;">
+                    <!-- <form th:action="@{'/cancelar-reserva/' + ${reserva.id}}" method="post" style="display:inline;">
                         <button type="submit" class="btn cancelar-btn">Cancelar</button>
-                    </form>
+                    </form> -->
+                    <!-- Botón de cancelar (ahora abre la modal) -->
+					<button type="button" 
+					        class="btn cancelar-btn" 
+					        th:attr="data-id=${reserva.id}">
+					    Cancelar
+					</button>
                 </div>
             </div>
         </div>
     </div>
+    
+    <div th:replace="~{fragments/cancelar :: cancelar}"></div>
+	<script th:src="@{/js/cancelarReserva.js}"></script>
+    
 </body>
 </html>

@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.hoteling.bussiness.ReservaService;
+import com.example.hoteling.entities.Estado;
 import com.example.hoteling.entities.Recurso;
 import com.example.hoteling.entities.Reserva;
 import com.example.hoteling.entities.Usuario;
 import com.example.hoteling.repositories.RecursoRepository;
+import com.example.hoteling.repositories.ReservaRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,11 +26,13 @@ import jakarta.servlet.http.HttpSession;
 public class ReservaController {
 
     private final RecursoRepository recursoRepository;
+    private final ReservaRepository reservaRepository;
     private final ReservaService reservaService;
 
-    public ReservaController(RecursoRepository recursoRepository, ReservaService reservaService) {
+    public ReservaController(RecursoRepository recursoRepository, ReservaService reservaService,ReservaRepository reservaRepository) {
         this.recursoRepository = recursoRepository;
         this.reservaService = reservaService;
+        this.reservaRepository = reservaRepository;
     }
 
     // Mostrar formulario de reserva
@@ -94,5 +98,32 @@ public class ReservaController {
 
         return "reservasUser"; // nombre del template
     }
+    
+    @PostMapping("/cancelar-reserva/{id}")
+    public String cancelarReserva(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
+        // ✅ Verificar que la reserva pertenece al usuario logueado
+        if (!reserva.getUsuario().getId().equals(usuario.getId())) {
+            redirectAttributes.addFlashAttribute("error", "No puedes cancelar una reserva que no es tuya.");
+            return "redirect:/mis-reservas";
+        }
+
+        // ✅ Cambiar estado y guardar
+        reserva.setEstado(Estado.CANCELADA);
+        reservaRepository.save(reserva);
+
+        redirectAttributes.addFlashAttribute("success", "Reserva cancelada con éxito.");
+        return "redirect:/mis-reservas";
+    }
+
+    
+    
 
 }

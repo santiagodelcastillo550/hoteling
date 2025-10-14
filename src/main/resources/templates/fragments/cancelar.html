@@ -1,0 +1,15 @@
+<!-- fragments/modal-cancelar.html -->
+<div th:fragment="cancelar">
+    <!-- Modal de confirmación de cancelación -->
+    <div id="modalCancelar" class="modal">
+        <div class="modal-content" style="border: 3px solid #e74c3c;">
+            <span class="close" id="cerrarModalCancelar">&times;</span>
+            <h2>Cancelar reserva</h2>
+            <p>¿Seguro que deseas cancelar esta reserva?</p>
+            <div class="modal-actions">
+                <button id="confirmarCancelar" class="btn cancelar-btn">Sí, cancelar</button>
+                <button id="cancelarAccion" class="btn volver-btn">No, volver</button>
+            </div>
+        </div>
+    </div>
+</div>

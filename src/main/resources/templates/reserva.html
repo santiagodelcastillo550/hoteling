@@ -16,10 +16,6 @@
     <div class="detalle-wrapper">
         <div class="detalle-card">
             <h2>Reserva de <span th:text="${recurso.nombre}">Recurso</span></h2>
-
-			<!-- <div th:if="${errorReserva}" class="alerta-error">
-			    <p th:text="${errorReserva}"></p>
-			</div> -->
             <form th:action="@{'/reservar/' + ${recurso.id}}" method="post" class="reserva-form">
                 
                 <!-- Fechas -->

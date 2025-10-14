@@ -64,4 +64,14 @@ public class ReservaService {
     public List<Reserva> obtenerReservasDeUsuario(Usuario usuario) {
         return reservaRepository.findByUsuario(usuario);
     }
+    
+    public void cancelarReserva(Reserva reserva, Usuario usuario) {
+        if (!reserva.getUsuario().getId().equals(usuario.getId())) {
+            throw new IllegalArgumentException("No puedes cancelar una reserva que no es tuya.");
+        }
+        reserva.setEstado(Estado.CANCELADA);
+        reservaRepository.save(reserva);
+    }
+
+
 }
