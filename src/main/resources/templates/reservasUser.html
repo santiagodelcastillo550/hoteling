@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis Reservas</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css?v=2}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body class="reservas-page">
     <!-- NAVBAR -->
@@ -51,15 +51,9 @@
                         <button type="submit" class="btn volver-btn">← Volver</button>
                     </form>
 
-                    <!-- <form th:action="@{'/cancelar-reserva/' + ${reserva.id}}" method="post" style="display:inline;">
-                        <button type="submit" class="btn cancelar-btn">Cancelar</button>
-                    </form> -->
-                    <!-- Botón de cancelar (ahora abre la modal) -->
-					<button type="button" 
-					        class="btn cancelar-btn" 
-					        th:attr="data-id=${reserva.id}">
-					    Cancelar
-					</button>
+                    <form th:action="@{'/cancelar-reserva/' + ${reserva.id}}" method="post" style="display:inline;">
+					    <button type="button" class="btn cancelar-btn" th:attr="data-id=${reserva.id}">Cancelar</button>
+					</form>
                 </div>
             </div>
         </div>

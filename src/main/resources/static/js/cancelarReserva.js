@@ -1,20 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("modalCancelar");
+    const confirmarBtn = document.querySelector(".modal-cancelar-btn"); // ✅ nuevo selector
     const cerrarBtn = document.getElementById("cerrarModalCancelar");
     const cancelarBtn = document.getElementById("cancelarAccion");
-    const confirmarBtn = document.getElementById("confirmarCancelar");
+
+    if (!modal) {
+        console.warn("⚠️ Modal de cancelación no encontrada en el DOM.");
+        return;
+    }
 
     let reservaId = null;
 
-    // Abrir modal al hacer clic en un botón "Cancelar"
+    // 🔹 Mostrar la modal al hacer clic en los botones Cancelar
     document.querySelectorAll(".cancelar-btn").forEach(boton => {
-        boton.addEventListener("click", () => {
+        // Evita interceptar el botón “Sí, cancelar” dentro de la modal
+        if (boton.classList.contains("modal-cancelar-btn")) return;
+
+        boton.addEventListener("click", (e) => {
+            e.preventDefault();
             reservaId = boton.getAttribute("data-id");
+            if (!reservaId) {
+                console.error("❌ No se encontró data-id en el botón de cancelar.");
+                return;
+            }
             modal.style.display = "flex";
         });
     });
 
-    // Cerrar modal
+    // 🔹 Cerrar modal
     function cerrarModal() {
         modal.style.display = "none";
         reservaId = null;
@@ -22,22 +35,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     cerrarBtn.addEventListener("click", cerrarModal);
     cancelarBtn.addEventListener("click", cerrarModal);
-    window.addEventListener("click", e => { if (e.target === modal) cerrarModal(); });
+    window.addEventListener("click", e => {
+        if (e.target === modal) cerrarModal();
+    });
 
-    // Confirmar cancelación
-    confirmarBtn.addEventListener("click", () => {
-        if (!reservaId) return;
+    // 🔹 Confirmar cancelación → llamar al endpoint
+    confirmarBtn.addEventListener("click", async () => {
+        if (!reservaId) {
+            alert("Error: ID de reserva no encontrado.");
+            return;
+        }
 
-        fetch(`/cancelar-reserva/${reservaId}`, {
-            method: "POST"
-        }).then(response => {
+        try {
+            const response = await fetch(`/cancelar-reserva/${reservaId}`, {
+                method: "POST",
+                headers: { "Accept": "application/json" },
+                credentials: "same-origin"
+            });
+
             if (response.ok) {
                 window.location.href = "/mis-reservas";
             } else {
                 alert("Error al cancelar la reserva.");
             }
-        }).catch(err => {
-            console.error("Error:", err);
-        });
+        } catch (err) {
+            console.error("❌ Error en la solicitud:", err);
+            alert("Ocurrió un error al cancelar la reserva.");
+        }
     });
 });
