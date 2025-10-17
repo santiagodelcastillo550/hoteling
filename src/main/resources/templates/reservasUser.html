@@ -46,7 +46,7 @@
                 </p>
 
                 <!-- Botones -->
-                <div class="reserva-actions">
+                <!-- <div class="reserva-actions">
                     <form th:action="@{/}" method="get" style="display:inline;">
                         <button type="submit" class="btn volver-btn">← Volver</button>
                     </form>
@@ -54,7 +54,28 @@
                     <form th:action="@{'/cancelar-reserva/' + ${reserva.id}}" method="post" style="display:inline;">
 					    <button type="button" class="btn cancelar-btn" th:attr="data-id=${reserva.id}">Cancelar</button>
 					</form>
-                </div>
+                </div> -->
+                <!-- Botones -->
+				<div class="reserva-actions">
+				    <form th:action="@{/}" method="get" style="display:inline;">
+				        <button type="submit" class="btn volver-btn">← Volver</button>
+				    </form>
+				
+				    <!-- Mostrar botón de cancelar solo si NO está cancelada -->
+				    <th:block th:if="${!#strings.equalsIgnoreCase(#strings.trim(reserva.estado), 'CANCELADA')}">
+				        <form th:action="@{'/cancelar-reserva/' + ${reserva.id}}" method="post" style="display:inline;">
+				            <button 
+				                type="button" 
+				                class="btn cancelar-btn" 
+				                th:attr="data-id=${reserva.id}">
+				                Cancelar
+				            </button>
+				        </form>
+				    </th:block>
+				</div>
+
+
+                
             </div>
         </div>
     </div>
